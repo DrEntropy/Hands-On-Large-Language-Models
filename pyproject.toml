@@ -1,0 +1,66 @@
+[project]
+name = "hands-on-llm"
+version = "0.1.0"
+description = "Code for the book 'Hands-On Large Language Models' (uv-managed fork)"
+readme = "README.md"
+# The book targets Python 3.10 (conda env pins 3.10.14). Many pinned deps
+# (torch 2.3.1, numpy 1.26.4) lack wheels for 3.12+, so cap below 3.12.
+requires-python = ">=3.10,<3.12"
+
+# Versions mirror the upstream requirements.txt so results match the book.
+dependencies = [
+    # Data handling
+    "numpy==1.26.4",
+    "pandas==2.2.2",
+    "datasets==2.20.0",
+
+    # Environment
+    "jupyterlab==4.2.2",
+    "ipywidgets==8.1.3",
+
+    # Hard dependencies throughout the entire book
+    "torch==2.3.1",
+    "transformers==4.41.2",
+    "sentence-transformers==3.0.1",
+    "matplotlib==3.9.0",
+    "scikit-learn==1.5.0",
+    "sentencepiece==0.2.0",
+    "nltk==3.8.1",
+    "evaluate==0.4.2",
+    "scipy>=1.15.0",
+
+    # Cloud providers
+    "openai==1.34.0",
+    "cohere==5.5.8",
+    # openai 1.34 still passes proxies= to httpx.Client; httpx 0.28 removed it.
+    "httpx==0.27.2",
+
+    # Local models (added to the upstream deps — for experimenting with Ollama)
+    "ollama>=0.3.0",
+
+    # Chapter-specific dependencies
+    "datamapplot==0.3.0",
+    "faiss-cpu==1.8.0",
+    "bertopic==0.16.3",
+    "annoy==1.17.3",
+    "llama-cpp-python==0.2.78",
+    "numexpr==2.10.0",
+    "langchain==0.2.5",
+    "langchain-community==0.2.5",
+    "langchain-openai==0.1.8",
+    "duckduckgo-search==7.1.1",
+    "gensim==4.3.2",
+    "setfit==1.0.3",
+    "seqeval==1.2.2",
+    "trl==0.9.4",
+    "peft==0.11.1",
+    "accelerate==0.31.0",
+    # bitsandbytes has no macOS wheels; only needed for CUDA 4-bit quant (ch. 12).
+    "bitsandbytes==0.43.1; sys_platform != 'darwin'",
+    "mteb==1.12.39",
+]
+
+# This repo is a collection of notebooks, not an installable package,
+# so tell uv not to try to build/install the project itself.
+[tool.uv]
+package = false
